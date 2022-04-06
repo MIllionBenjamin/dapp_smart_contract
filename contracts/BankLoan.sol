@@ -2,15 +2,19 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 import "./UserIdentity.sol";
+import "./MicroToken.sol";
+import "./carRentalSmartContract.sol";
 
 contract BankLoan{
-    
+
+    //Now only Borrower Loans.
     enum LoanState{
-        REQUESTED, 
+        
         BORROWER_SIGNED,
         BANK_APPROVED, 
         BANK_REJECTED,
-        PAID_TO_BROKER, 
+        
+       
         ONGOING, 
         DEFAULT, 
         CLOSE
@@ -23,13 +27,15 @@ contract BankLoan{
         uint interest;
         string planId;
         LoanState state;
-        address broker;
+        //Now only Borrower Loans.
+        //address broker;
         address borrower;
-        uint brokerFee;
+        //uint brokerFee;
         bool bankApprove;
         bool isBorrowerSigned;
     }
     
+    //Now only Borrower Loans.
     event loanRequest(
         uint id,
         uint amount,
@@ -37,37 +43,62 @@ contract BankLoan{
         uint interest,
         string planId,
         LoanState state,
-        address broker,
+        
         address borrower,
-        uint brokerFee,
+        
         bool bankApprove,
         bool isBorrowerSigned
     );
     
-    address private admin;
-    UserIdentity private identitySC;
-    Loan[] private loans;
+    address public admin;
+    UserIdentity public identitySC;
+    MicroToken public tokenSC;  
+    CarRental public carRentalSC;
+    Loan[] public loans;
     
-    constructor (address _identitySC) {
+    // identitySC and tokenSC are default the bank address. 
+    // carCompanyAddress is the address of the car company (normally not the bank).
+    constructor (address userIdentityContractAddress) {
         admin = msg.sender; // Ganache Account 1, the Bank
-        identitySC = UserIdentity(_identitySC);
+        // The bank is also the UserIdentity administrator
+        identitySC = UserIdentity(userIdentityContractAddress);
+        tokenSC = MicroToken(msg.sender);
+        carRentalSC = CarRental(msg.sender);
     }
     
     modifier isAdmin()
     {
-        require(msg.sender == admin);
-        _;
-    }
-    
-    modifier isBroker()
-    {
-        require(identitySC.verifyIsBroker(msg.sender), 'Broker Only');
+        require(msg.sender == admin, "Must be Admin!");
         _;
     }
 
-    modifier isBorrower(address _address)
+
+    /*
+    User Management
+     */
+
+    function addBorrowertoUser(string memory _socialSecurityId, address _address, string memory _name) public isAdmin() {
+        identitySC.addBorrower(_socialSecurityId, _address, _name);
+    }
+
+
+
+    /*
+    Token Movement
+     */
+    // Bank transfer token as salary to the borrower, otherwise the borrower will not be able to pay the loan.
+    function transferSalaryto(address _to, uint _value) public payable isAdmin() {
+        tokenSC.transfer(_to, _value);
+    }
+
+
+    /*
+        Loan
+     */
+    modifier isBorrower()
     {
-        require(identitySC.verifyIsBorrower(_address), 'Borrower Only');
+        // Now only borrower can request loan
+        require(identitySC.verifyIsBorrower(msg.sender), 'Borrower Only');
         _;
     }
 
@@ -115,18 +146,20 @@ contract BankLoan{
         _;
     }
 
-    function applyLoan(uint _amount, uint _months, uint _interest, string memory _planId, address _borrower, uint _brokerFee) 
-        public isBroker() isBorrower(_borrower)
+    function applyLoan(uint _amount, uint _months, uint _interest, string memory _planId) 
+        public isBorrower()
     {
-        Loan memory l = Loan(loans.length + 1, _amount, _months, _interest, _planId, LoanState.REQUESTED, msg.sender,
-        _borrower, _brokerFee, false, false);
+        // Borrower Loan Directly. The first status of loan is BORROWER_SIGNED
+        Loan memory l = Loan(loans.length + 1, _amount, _months, _interest, _planId, LoanState.BORROWER_SIGNED, msg.sender, false, false);
         
         loans.push(l);
         
         emit loanRequest(l.id, l.amount, l.months, l.interest, l.planId,
-            l.state, l.broker, l.borrower, l.brokerFee, l.bankApprove, l.isBorrowerSigned );
+            l.state, l.borrower, l.bankApprove, l.isBorrowerSigned );
     }
-    
+
+    // Borrower Loan Directly, no need to sign
+    /*    
     function signByBorrower(uint _loanId) public isLoanBorrower(_loanId) isValidLoan(_loanId) isLoanIn(_loanId, LoanState.REQUESTED)
     {
         for (uint i = 0; i < loans.length; i++) {
@@ -137,7 +170,7 @@ contract BankLoan{
             }
         }
     }
-    
+    */
     
     function approveLoan(uint _loanId) public isAdmin() isValidLoan(_loanId) isLoanIn(_loanId, LoanState.BORROWER_SIGNED)
     {
@@ -160,22 +193,15 @@ contract BankLoan{
             }
         }
     }
+
     
-    function confirmTokenTrasferToBroker(uint _loanId) public isAdmin() isValidLoan(_loanId) isLoanIn(_loanId, LoanState.BANK_APPROVED)
+    function confirmTokenTrasferToBorrower(uint _loanId) public isAdmin() isValidLoan(_loanId) isLoanIn(_loanId, LoanState.BANK_APPROVED)
     {
         for (uint i = 0; i < loans.length; i++) {
             if (loans[i].id == _loanId) {
-                loans[i].state = LoanState.PAID_TO_BROKER;
-                break;
-            }
-        }
-    }
-    
-    
-    function confirmTokenTrasferToBorrower(uint _loanId) public isAdmin() isValidLoan(_loanId) isLoanIn(_loanId, LoanState.PAID_TO_BROKER)
-    {
-        for (uint i = 0; i < loans.length; i++) {
-            if (loans[i].id == _loanId) {
+
+                tokenSC.transferFrom(msg.sender, loans[i].borrower, loans[i].amount);
+
                 loans[i].state = LoanState.ONGOING;
                 break;
             }

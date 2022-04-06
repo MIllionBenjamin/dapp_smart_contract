@@ -273,11 +273,11 @@
 			]
 		},
 		"contracts/MicroToken.sol": {
-			"keccak256": "0x3144defe275f2c178487015001f9d6a69b16401be7e75d0cf69197ca96e2cd56",
+			"keccak256": "0x967061e2b1372cde40e731c83ca44234b69e34db768447b4fd314d47c4f61f06",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://9f617f2a4d4c4a593b2d3e731ccf84a807fc71a09331aa1aff994ee9842a9ed9",
-				"dweb:/ipfs/QmTUiri9iCeF9vVaH8E5dySzkpvQv3aBBTY6ZVD3UwYm7L"
+				"bzz-raw://f4ea4bbef99dc871dee3f5cdef3d2326732a93825810ac1b7f9b6480c6d83afa",
+				"dweb:/ipfs/QmSHp99jseUpAoLv8kZXNCJsBKqgueVXhmAHQWpfw5SYfC"
 			]
 		}
 	},

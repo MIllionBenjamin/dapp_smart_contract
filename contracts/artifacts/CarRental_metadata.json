@@ -1,0 +1,546 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "carCompanyAddress",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "carName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "carDailyRent",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "number",
+						"type": "uint256"
+					}
+				],
+				"name": "ABCAddCar",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "ABCAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "returnRecordId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "damageFixFeeHere",
+						"type": "uint256"
+					}
+				],
+				"name": "ABCAuditDeposit",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "auditRecordId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "returnRecordId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "customerAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "damageFixFee",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "actualRefundAmount",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct CarRental.ABCAuditDepositRecord",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allABCAuditDepositRecord",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "auditRecordId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "returnRecordId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "customerAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "damageFixFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "actualRefundAmount",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "allCustomerAddresses",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allCustomerRentCarRecord",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "rentRecordId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "customerAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "carName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rentDays",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalMoneyDeposit",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rentTimeStamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "returnRecordId",
+						"type": "int256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allCustomerReturnCarRecord",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "returnRecordId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rentRecordId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "customerAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "carName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "returnTimeStamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rentFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "auditRecordId",
+						"type": "int256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "carAvailability",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "carInfo",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "needDeposit",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "dailyRent",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "currentAuditRecordId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "currentRentRecordId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "currentReturnRecordId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "customerRegister",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "carName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rentDays",
+						"type": "uint256"
+					}
+				],
+				"name": "customerRentCar",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "rentRecordId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "customerAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "carName",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "rentDays",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalMoneyDeposit",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "rentTimeStamp",
+								"type": "uint256"
+							},
+							{
+								"internalType": "int256",
+								"name": "returnRecordId",
+								"type": "int256"
+							}
+						],
+						"internalType": "struct CarRental.customerRentCarRecord",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "customerRentingCarNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "rentRecordId",
+						"type": "uint256"
+					}
+				],
+				"name": "customerReturnCar",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "returnRecordId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "rentRecordId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "customerAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "carName",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "returnTimeStamp",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "rentFee",
+								"type": "uint256"
+							},
+							{
+								"internalType": "int256",
+								"name": "auditRecordId",
+								"type": "int256"
+							}
+						],
+						"internalType": "struct CarRental.customerReturnCarRecord",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/CarRentalSmartContract.sol": "CarRental"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/CarRentalSmartContract.sol": {
+			"keccak256": "0xbf03333cac3c1701006a16d7232dd824711bfe3b7f34376c9efef9750b1d819b",
+			"urls": [
+				"bzz-raw://e0811e559a9712910a4c5cb07d16a8c3ea5e05bab23629d3314f47a4bc768e6d",
+				"dweb:/ipfs/QmdkBimoU7JY3u8ePaVAsiZuErL3os85turHeEQpko1GRJ"
+			]
+		}
+	},
+	"version": 1
+}

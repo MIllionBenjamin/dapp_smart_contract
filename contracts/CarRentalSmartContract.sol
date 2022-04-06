@@ -94,8 +94,8 @@ contract CarRental {
     ABC company calls this function.
     ABC company deploys this contract.
     */
-    constructor() {
-        ABCAddress = msg.sender;
+    constructor(address carCompanyAddress) {
+        ABCAddress = carCompanyAddress;
     }
 
 

@@ -9,7 +9,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_identitySC",
+						"name": "userIdentityContractAddress",
 						"type": "address"
 					}
 				],
@@ -58,20 +58,8 @@
 					{
 						"indexed": false,
 						"internalType": "address",
-						"name": "broker",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
 						"name": "borrower",
 						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "brokerFee",
-						"type": "uint256"
 					},
 					{
 						"indexed": false,
@@ -88,6 +76,42 @@
 				],
 				"name": "loanRequest",
 				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_socialSecurityId",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					}
+				],
+				"name": "addBorrowertoUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "admin",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			},
 			{
 				"inputs": [
@@ -110,16 +134,6 @@
 						"internalType": "string",
 						"name": "_planId",
 						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "_borrower",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_brokerFee",
-						"type": "uint256"
 					}
 				],
 				"name": "applyLoan",
@@ -138,6 +152,19 @@
 				"name": "approveLoan",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "carRentalSC",
+				"outputs": [
+					{
+						"internalType": "contract CarRental",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -162,19 +189,6 @@
 					}
 				],
 				"name": "confirmTokenTrasferToBorrower",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_loanId",
-						"type": "uint256"
-					}
-				],
-				"name": "confirmTokenTrasferToBroker",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -217,18 +231,8 @@
 							},
 							{
 								"internalType": "address",
-								"name": "broker",
-								"type": "address"
-							},
-							{
-								"internalType": "address",
 								"name": "borrower",
 								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "brokerFee",
-								"type": "uint256"
 							},
 							{
 								"internalType": "bool",
@@ -244,6 +248,78 @@
 						"internalType": "struct BankLoan.Loan[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "identitySC",
+				"outputs": [
+					{
+						"internalType": "contract UserIdentity",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "loans",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "months",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "interest",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "planId",
+						"type": "string"
+					},
+					{
+						"internalType": "enum BankLoan.LoanState",
+						"name": "state",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "borrower",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "bankApprove",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBorrowerSigned",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -276,16 +352,34 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "tokenSC",
+				"outputs": [
+					{
+						"internalType": "contract MicroToken",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
-						"name": "_loanId",
+						"name": "_value",
 						"type": "uint256"
 					}
 				],
-				"name": "signByBorrower",
+				"name": "transferSalaryto",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -332,18 +426,8 @@
 							},
 							{
 								"internalType": "address",
-								"name": "broker",
-								"type": "address"
-							},
-							{
-								"internalType": "address",
 								"name": "borrower",
 								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "brokerFee",
-								"type": "uint256"
 							},
 							{
 								"internalType": "bool",
@@ -392,20 +476,43 @@
 		"remappings": []
 	},
 	"sources": {
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xbbc8ac883ac3c0078ce5ad3e288fbb3ffcc8a30c3a98c0fda0114d64fc44fca2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://87a7a5d2f6f63f84598af02b8c50ca2df2631cb8ba2453e8d95fcb17e4be9824",
+				"dweb:/ipfs/QmR76hqtAcRqoFj33tmNjcWTLrgNsAaakYwnKZ8zoJtKei"
+			]
+		},
 		"contracts/BankLoan.sol": {
-			"keccak256": "0x0852a72ac5aee5ee6af0b887e0788687ea7be347723317a8ab8d7fe90665371a",
+			"keccak256": "0x31882f5ea9afc2b46ca7c70c668e01e87c01dd3ff368260fbf135ffd02948bd8",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://c662c14b7510738f7336859baea3d353d9a9fce0332b68a86ba8f8f3d8c2714f",
-				"dweb:/ipfs/QmdP4BrHExeCNX5bLYfipMZSRMR8wFzC3E87hjKWt93Fg5"
+				"bzz-raw://cda1f612b9e10ffb36fc154d4a7936ef8781306183811286e58dbd73e0a37d9f",
+				"dweb:/ipfs/QmXNUDiqGyZm9pBCWHnm4EGwnmpDrmbPcn58bddD8i4siP"
+			]
+		},
+		"contracts/MicroToken.sol": {
+			"keccak256": "0x967061e2b1372cde40e731c83ca44234b69e34db768447b4fd314d47c4f61f06",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://f4ea4bbef99dc871dee3f5cdef3d2326732a93825810ac1b7f9b6480c6d83afa",
+				"dweb:/ipfs/QmSHp99jseUpAoLv8kZXNCJsBKqgueVXhmAHQWpfw5SYfC"
 			]
 		},
 		"contracts/UserIdentity.sol": {
-			"keccak256": "0x168e28b5da339c8b2dbc6a66454d0091f13b376b4606be7657b368f7b5ea1352",
+			"keccak256": "0x0bed9a448361af92b9e1221209bd6f7dca733459e41c24a45d6db34ad657645d",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://58f44ba7e9ea2d8b5e0f9c986211ede89962441dcb59cabb7560bbf45c7f91a0",
-				"dweb:/ipfs/QmdhPkLeeyVvJp65asonhijLVtEDP7i6kCd2LkmBNCN1TA"
+				"bzz-raw://e70d0fae70cdfb885017ef856c195cc5f1ca23a788f9db2bbfd225cb713f7c0d",
+				"dweb:/ipfs/QmePZLQpv35wzx29zaWxHv2wfwCHtGFk1iZ73mnDCrRra2"
+			]
+		},
+		"contracts/carRentalSmartContract.sol": {
+			"keccak256": "0xbf03333cac3c1701006a16d7232dd824711bfe3b7f34376c9efef9750b1d819b",
+			"urls": [
+				"bzz-raw://e0811e559a9712910a4c5cb07d16a8c3ea5e05bab23629d3314f47a4bc768e6d",
+				"dweb:/ipfs/QmdkBimoU7JY3u8ePaVAsiZuErL3os85turHeEQpko1GRJ"
 			]
 		}
 	},

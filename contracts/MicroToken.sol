@@ -10,6 +10,7 @@ contract MicroToken is IERC20 {
     uint private constant __totalSupply = 1000;
     mapping (address => uint) private __balanceOf;
     mapping (address => mapping (address => uint)) private __allowances;
+    // add parameter to the constructor
     constructor() {
             __balanceOf[msg.sender] = __totalSupply;
     }

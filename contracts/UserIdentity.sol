@@ -3,7 +3,9 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract UserIdentity{
     
-    enum Role { GUEST, BROKER, BORROWER }
+    //Now only Borrower Loans.
+    // Must have a 'NORMAL' as default value, otherwise the default null value is 'BORROWER'
+    enum Role {NORMAL, BORROWER }
     
     struct User{
         uint id; 
@@ -13,17 +15,18 @@ contract UserIdentity{
         Role role;
     }
     
-    address private admin;
+    address public admin;
     
-    uint private brokersCount = 0;
-    uint private borrowersCount = 0;
+    uint public borrowersCount = 0;
+    //uint private brokersCount = 0;
+
+    mapping(address => User) public borrowers;
+    //mapping(address => User) private brokers;
     
-    mapping(address => User) private borrowers;
-    mapping(address => User) private brokers;
+    address[] public borrowersAddresses;
+    // address[] private brokersAddresses;
     
-    address[] private brokersAddresses;
-    address[] private borrowersAddresses;
-    
+    // add parameter to the constructor
     constructor()
     {
         admin = msg.sender; // Ganache Account 1, the Bank
@@ -35,27 +38,12 @@ contract UserIdentity{
         _;
     }
     
-    function verifyIsBroker(address _address) public view returns(bool)
-    {
-        bool isValid = false;
-        isValid = brokers[_address].role == Role.BROKER;
-        return isValid;
-    }
     
     function verifyIsBorrower(address _address) public view returns(bool)
     {
         bool isValid = false;
         isValid = borrowers[_address].role == Role.BORROWER;
         return isValid;
-    }
-
-    function addBroker(string memory _socialSecurityId, address _address, string memory _name) 
-        public isAdmin()
-    {
-        brokersCount = brokersCount + 1;
-        User memory user = User(brokersCount, _socialSecurityId, _address, _name, Role.BROKER );
-        brokers[_address] = user;
-        brokersAddresses.push(_address);
     }
     
     function addBorrower(string memory _socialSecurityId, address _address, string memory _name) 
@@ -67,13 +55,6 @@ contract UserIdentity{
         borrowersAddresses.push(_address);
     }
     
-    function getAllBrokers() public view returns (User[] memory){
-        User[] memory ret = new User[](brokersCount);
-        for (uint i = 0; i < brokersCount; i++) {
-            ret[i] = brokers[brokersAddresses[i]];
-        }
-        return ret;
-    }
     
     function getAllBorrowers() public view returns (User[] memory){
         User[] memory ret = new User[](borrowersCount);
