@@ -9,7 +9,12 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "carCompanyAddress",
+						"name": "microTokenContractAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "userIdentityContractAddress",
 						"type": "address"
 					}
 				],
@@ -143,25 +148,6 @@
 						"internalType": "uint256",
 						"name": "actualRefundAmount",
 						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "allCustomerAddresses",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -353,19 +339,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "customerRegister",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "string",
@@ -505,6 +478,32 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "identitySC",
+				"outputs": [
+					{
+						"internalType": "contract UserIdentity",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "tokenSC",
+				"outputs": [
+					{
+						"internalType": "contract MicroToken",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -534,11 +533,35 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/CarRentalSmartContract.sol": {
-			"keccak256": "0xbf03333cac3c1701006a16d7232dd824711bfe3b7f34376c9efef9750b1d819b",
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xbbc8ac883ac3c0078ce5ad3e288fbb3ffcc8a30c3a98c0fda0114d64fc44fca2",
+			"license": "MIT",
 			"urls": [
-				"bzz-raw://e0811e559a9712910a4c5cb07d16a8c3ea5e05bab23629d3314f47a4bc768e6d",
-				"dweb:/ipfs/QmdkBimoU7JY3u8ePaVAsiZuErL3os85turHeEQpko1GRJ"
+				"bzz-raw://87a7a5d2f6f63f84598af02b8c50ca2df2631cb8ba2453e8d95fcb17e4be9824",
+				"dweb:/ipfs/QmR76hqtAcRqoFj33tmNjcWTLrgNsAaakYwnKZ8zoJtKei"
+			]
+		},
+		"contracts/CarRentalSmartContract.sol": {
+			"keccak256": "0x7250660979514e84faa9bc91312183520c01c6c70759eb3c07317c2eaa2ba0dd",
+			"urls": [
+				"bzz-raw://a1763cbc6d22de6068ccd71b289e2be58f020c72ac4d54047bc04d05d1f6a7dd",
+				"dweb:/ipfs/QmRKdY3fn5DaFyFjh18gkHTsiaPtmY6dY8b6zPPK5rFmNU"
+			]
+		},
+		"contracts/MicroToken.sol": {
+			"keccak256": "0xdaf2850afe0bc0f999678767b9994d5d4c0ecc01e52e32d08b12fbf1ad3f54f3",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://27d9010916cfe8a962b3b84e7f78f646c8ad9e432b1b74a374ddc67a62c6fe3c",
+				"dweb:/ipfs/QmWhW1H6eGm8LZmAYzB7iWsJMoKo87HDFLHT65KKFUBuRH"
+			]
+		},
+		"contracts/UserIdentity.sol": {
+			"keccak256": "0x5207e49e307a8cc220e54024518b2b6eef2cde1c1bdfd6339ff66eecf876bb5b",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://0d7ad812c2a11d8438b5e35ad16a3b9962430da4c3d15069f152c4b67b454b44",
+				"dweb:/ipfs/Qmezh9uHYMPg2HzEPabsAoDTc1gCjw7DGW9qzYBRH3Nghs"
 			]
 		}
 	},

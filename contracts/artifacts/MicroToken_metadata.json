@@ -64,6 +64,49 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "__allowances",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "__balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "_owner",
 						"type": "address"
 					},
@@ -273,11 +316,11 @@
 			]
 		},
 		"contracts/MicroToken.sol": {
-			"keccak256": "0x967061e2b1372cde40e731c83ca44234b69e34db768447b4fd314d47c4f61f06",
+			"keccak256": "0xdaf2850afe0bc0f999678767b9994d5d4c0ecc01e52e32d08b12fbf1ad3f54f3",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://f4ea4bbef99dc871dee3f5cdef3d2326732a93825810ac1b7f9b6480c6d83afa",
-				"dweb:/ipfs/QmSHp99jseUpAoLv8kZXNCJsBKqgueVXhmAHQWpfw5SYfC"
+				"bzz-raw://27d9010916cfe8a962b3b84e7f78f646c8ad9e432b1b74a374ddc67a62c6fe3c",
+				"dweb:/ipfs/QmWhW1H6eGm8LZmAYzB7iWsJMoKo87HDFLHT65KKFUBuRH"
 			]
 		}
 	},

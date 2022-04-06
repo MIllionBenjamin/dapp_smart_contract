@@ -58,27 +58,20 @@ contract BankLoan{
     
     // identitySC and tokenSC are default the bank address. 
     // carCompanyAddress is the address of the car company (normally not the bank).
-    constructor (address userIdentityContractAddress) {
+    constructor (address userIdentityContractAddress, address microTokenContractAddress) {
         admin = msg.sender; // Ganache Account 1, the Bank
         // The bank is also the UserIdentity administrator
         identitySC = UserIdentity(userIdentityContractAddress);
-        tokenSC = MicroToken(msg.sender);
-        carRentalSC = CarRental(msg.sender);
+        tokenSC = MicroToken(microTokenContractAddress);
+        //require(identitySC.admin == admin, "User Identity Admin must be the same as the bank admin!");
+        //require(tokenSC.admin == admin, "Token Admin must be the same as the bank admin!");
+        
     }
     
     modifier isAdmin()
     {
         require(msg.sender == admin, "Must be Admin!");
         _;
-    }
-
-
-    /*
-    User Management
-     */
-
-    function addBorrowertoUser(string memory _socialSecurityId, address _address, string memory _name) public isAdmin() {
-        identitySC.addBorrower(_socialSecurityId, _address, _name);
     }
 
 
@@ -98,7 +91,7 @@ contract BankLoan{
     modifier isBorrower()
     {
         // Now only borrower can request loan
-        require(identitySC.verifyIsBorrower(msg.sender), 'Borrower Only');
+        require(identitySC.verifyIsBorrower(msg.sender), "Borrower Only");
         _;
     }
 
@@ -172,7 +165,7 @@ contract BankLoan{
     }
     */
     
-    function approveLoan(uint _loanId) public isAdmin() isValidLoan(_loanId) isLoanIn(_loanId, LoanState.BORROWER_SIGNED)
+    function approveLoan(uint _loanId) payable public isAdmin() isValidLoan(_loanId) isLoanIn(_loanId, LoanState.BORROWER_SIGNED)
     {
         for (uint i = 0; i < loans.length; i++) {
             if (loans[i].id == _loanId) {
@@ -200,9 +193,10 @@ contract BankLoan{
         for (uint i = 0; i < loans.length; i++) {
             if (loans[i].id == _loanId) {
 
-                tokenSC.transferFrom(msg.sender, loans[i].borrower, loans[i].amount);
+                if (tokenSC.transferFrom(msg.sender, loans[i].borrower, loans[i].amount)) {
+                    loans[i].state = LoanState.ONGOING;
+                }
 
-                loans[i].state = LoanState.ONGOING;
                 break;
             }
         }
@@ -210,9 +204,15 @@ contract BankLoan{
     
     function closeLoan(uint _loanId) public isAdmin() isValidLoan(_loanId) isLoanIn(_loanId, LoanState.ONGOING)
     {
+        
         for (uint i = 0; i < loans.length; i++) {
             if (loans[i].id == _loanId) {
-                loans[i].state = LoanState.CLOSE;
+                // borrower can return money to cloase the loan, or bank can let the borrower return money to close the loan
+                require(loans[i].borrower == msg.sender || admin == msg.sender, "Must be the borrower of this loan or the bank admin.");
+                if (tokenSC.transferFrom(loans[i].borrower, admin, loans[i].amount + loans[i].interest * loans[i].months)) {
+                    loans[i].state = LoanState.CLOSE;
+                }
+
                 break;
             }
         }

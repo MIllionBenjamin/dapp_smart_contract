@@ -1,5 +1,7 @@
 pragma solidity >=0.7.0 < 0.9.0;
 
+import "./MicroToken.sol";
+import "./UserIdentity.sol";
 
 contract CarRental {
 
@@ -48,7 +50,8 @@ contract CarRental {
 
     // A mapping that stores all customers' addresses.
     // If an address exists, its value is true, else false.
-    mapping (address => bool) public allCustomerAddresses;
+    // Now borrower rents car. No need customer's registration
+    //mapping (address => bool) public allCustomerAddresses;
 
     /* 
         This customer's renting car. 
@@ -76,7 +79,10 @@ contract CarRental {
     uint public currentAuditRecordId = 1;
     mapping (uint => ABCAuditDepositRecord) public allABCAuditDepositRecord;
 
-
+    // add token management
+    MicroToken public tokenSC;  
+    // add user identity management
+    UserIdentity public identitySC;
 
     // A modifier that uses for the function which can only be called by ABC.
     modifier onlyABCCompanyCanCall {
@@ -84,9 +90,10 @@ contract CarRental {
       _;
    }
 
-    // A modifier that uses for the function which can only be called by Registered Customer.
+    // A modifier that uses for the function which can only be called by Borrower.
     modifier onlyRegisteredCustomerCanCall {
-       require(allCustomerAddresses[msg.sender] == true, "Customer not registered! Please register first!");
+        // Now only borrower can request rent
+        require(identitySC.verifyIsBorrower(msg.sender), "Borrower Only");
        _;
    }
 
@@ -94,21 +101,23 @@ contract CarRental {
     ABC company calls this function.
     ABC company deploys this contract.
     */
-    constructor(address carCompanyAddress) {
-        ABCAddress = carCompanyAddress;
+    constructor(address microTokenContractAddress, address userIdentityContractAddress) {
+        ABCAddress = msg.sender;
+        tokenSC = MicroToken(microTokenContractAddress);
+        identitySC = UserIdentity(userIdentityContractAddress);
     }
 
 
     /* 
-    Customer calls this function.
-    Customer registers itself to this service. 
-    Store this customer's address in allCustomerAddresses.
+    Now borrower can request rent.
+    No need to check the customer's registration.
     */
+    /*
     function customerRegister() public returns (bool) {
         allCustomerAddresses[msg.sender] = true;
         return true;
     }
-
+    */
 
     /* 
     ABC company calls this function.
@@ -137,18 +146,22 @@ contract CarRental {
     function customerRentCar(string calldata carName, uint rentDays) payable public onlyRegisteredCustomerCanCall returns (customerRentCarRecord memory) {
         //require(allCustomerAddresses[msg.sender] == true, "Customer not registered! Please register first!");
         require(carAvailability[carName] > 0, "No this type's cars available now!");
-        require(msg.value >= (carInfo[carName].needDeposit + rentDays * carInfo[carName].dailyRent), "Deposit given here is not enough! Deposit shoule be larger than (90 + rentDays) * dailyRent");
+
+        uint depositValueHere = carInfo[carName].needDeposit + rentDays * carInfo[carName].dailyRent;
+        //require(msg.value >= (carInfo[carName].needDeposit + rentDays * carInfo[carName].dailyRent), "Deposit given here is not enough! Deposit shoule be larger than (90 + rentDays) * dailyRent");
 
         // update customer renting car info
         customerRentingCarNumber[msg.sender][carName] += 1;
         // update car's availability info
         carAvailability[carName] -= 1;
         // generate a customerRentCarRecord and put the record into customerRentCarRecord
-        customerRentCarRecord memory thisRentCarRecord = customerRentCarRecord(currentRentRecordId, msg.sender, carName, rentDays, msg.value, block.timestamp, -1);
+        customerRentCarRecord memory thisRentCarRecord = customerRentCarRecord(currentRentRecordId, msg.sender, carName, rentDays, depositValueHere, block.timestamp, -1);
         allCustomerRentCarRecord[currentRentRecordId] = thisRentCarRecord;
         currentRentRecordId += 1;
-        // customer pay eth to the ABCAddress as Deposit
-        payable(ABCAddress).transfer(msg.value);
+
+        // customer pay token to the ABCAddress as Deposit
+        tokenSC.transferFrom(msg.sender, ABCAddress, depositValueHere);
+        
 
         return thisRentCarRecord;
     }
@@ -218,7 +231,7 @@ contract CarRental {
         uint refundAmountHere = totalDepositHere - rentFeeHere - damageFixFeeHere;
 
         // Refund to customer
-        payable(customerAddressHere).transfer(refundAmountHere);
+        tokenSC.transferFrom(ABCAddress, customerAddressHere, refundAmountHere);
 
         ABCAuditDepositRecord memory auditDepositRecordHere = ABCAuditDepositRecord(currentAuditRecordId, 
                                                                                     returnRecordId,

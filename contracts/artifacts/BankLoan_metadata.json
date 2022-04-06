@@ -11,6 +11,11 @@
 						"internalType": "address",
 						"name": "userIdentityContractAddress",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "microTokenContractAddress",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -78,29 +83,6 @@
 				"type": "event"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "_socialSecurityId",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "_address",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "_name",
-						"type": "string"
-					}
-				],
-				"name": "addBorrowertoUser",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "admin",
 				"outputs": [
@@ -151,7 +133,7 @@
 				],
 				"name": "approveLoan",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -485,34 +467,34 @@
 			]
 		},
 		"contracts/BankLoan.sol": {
-			"keccak256": "0x31882f5ea9afc2b46ca7c70c668e01e87c01dd3ff368260fbf135ffd02948bd8",
+			"keccak256": "0xfd848f302c041e5f443927ffd99ec15b8ed8202a576d09e351d4612042be82b6",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://cda1f612b9e10ffb36fc154d4a7936ef8781306183811286e58dbd73e0a37d9f",
-				"dweb:/ipfs/QmXNUDiqGyZm9pBCWHnm4EGwnmpDrmbPcn58bddD8i4siP"
+				"bzz-raw://ef070e8abcf3888cd1398db5ebbdcc25bc367016af55f4d815deb19bcf40f357",
+				"dweb:/ipfs/QmSL62SwXY2QSxA3BU7hP9TS2zLgWuT2BddBakbqMXidtK"
 			]
 		},
 		"contracts/MicroToken.sol": {
-			"keccak256": "0x967061e2b1372cde40e731c83ca44234b69e34db768447b4fd314d47c4f61f06",
+			"keccak256": "0xdaf2850afe0bc0f999678767b9994d5d4c0ecc01e52e32d08b12fbf1ad3f54f3",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://f4ea4bbef99dc871dee3f5cdef3d2326732a93825810ac1b7f9b6480c6d83afa",
-				"dweb:/ipfs/QmSHp99jseUpAoLv8kZXNCJsBKqgueVXhmAHQWpfw5SYfC"
+				"bzz-raw://27d9010916cfe8a962b3b84e7f78f646c8ad9e432b1b74a374ddc67a62c6fe3c",
+				"dweb:/ipfs/QmWhW1H6eGm8LZmAYzB7iWsJMoKo87HDFLHT65KKFUBuRH"
 			]
 		},
 		"contracts/UserIdentity.sol": {
-			"keccak256": "0x0bed9a448361af92b9e1221209bd6f7dca733459e41c24a45d6db34ad657645d",
+			"keccak256": "0x5207e49e307a8cc220e54024518b2b6eef2cde1c1bdfd6339ff66eecf876bb5b",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://e70d0fae70cdfb885017ef856c195cc5f1ca23a788f9db2bbfd225cb713f7c0d",
-				"dweb:/ipfs/QmePZLQpv35wzx29zaWxHv2wfwCHtGFk1iZ73mnDCrRra2"
+				"bzz-raw://0d7ad812c2a11d8438b5e35ad16a3b9962430da4c3d15069f152c4b67b454b44",
+				"dweb:/ipfs/Qmezh9uHYMPg2HzEPabsAoDTc1gCjw7DGW9qzYBRH3Nghs"
 			]
 		},
 		"contracts/carRentalSmartContract.sol": {
-			"keccak256": "0xbf03333cac3c1701006a16d7232dd824711bfe3b7f34376c9efef9750b1d819b",
+			"keccak256": "0x7250660979514e84faa9bc91312183520c01c6c70759eb3c07317c2eaa2ba0dd",
 			"urls": [
-				"bzz-raw://e0811e559a9712910a4c5cb07d16a8c3ea5e05bab23629d3314f47a4bc768e6d",
-				"dweb:/ipfs/QmdkBimoU7JY3u8ePaVAsiZuErL3os85turHeEQpko1GRJ"
+				"bzz-raw://a1763cbc6d22de6068ccd71b289e2be58f020c72ac4d54047bc04d05d1f6a7dd",
+				"dweb:/ipfs/QmRKdY3fn5DaFyFjh18gkHTsiaPtmY6dY8b6zPPK5rFmNU"
 			]
 		}
 	},

@@ -8,8 +8,12 @@ contract MicroToken is IERC20 {
     string public constant name = "Microfinance Token";
     uint8 public constant decimals = 0;
     uint private constant __totalSupply = 1000;
-    mapping (address => uint) private __balanceOf;
-    mapping (address => mapping (address => uint)) private __allowances;
+    mapping (address => uint) public __balanceOf;
+
+    /*
+    cancel the mechanism of allowance
+    */
+    mapping (address => mapping (address => uint)) public __allowances;
     // add parameter to the constructor
     constructor() {
             __balanceOf[msg.sender] = __totalSupply;
@@ -30,17 +34,19 @@ contract MicroToken is IERC20 {
         return false;
     }
     function transferFrom(address _from, address _to, uint _value) public override returns (bool success) {
-        if (__allowances[_from][msg.sender] > 0 &&
-            _value > 0 &&
-            __allowances[_from][msg.sender] >= _value &&
-            __balanceOf[_from] >= _value) {
-            __balanceOf[_from] -= _value;
-            __balanceOf[_to] += _value;
-             __allowances[_from][msg.sender] -= _value;
-            return true;
+        /*
+        cancel the mechanism of allowance
+        */
+        require(_value > 0 && __balanceOf[_from] >= _value, "Value must be greater than 0 and user balance must be greater than value!");
+
+        __balanceOf[_from] -= _value;
+        __balanceOf[_to] += _value;
+        //__allowances[_from][msg.sender] -= _value;
+        return true;
+        //return false;
     }
-        return false;
-    }
+
+    
     function approve(address _spender, uint _value) public override returns
     (bool success) {
         __allowances[msg.sender][_spender] = _value;
@@ -50,4 +56,5 @@ contract MicroToken is IERC20 {
         public view override returns (uint remaining) {
             return __allowances[_owner][_spender];
     }
+    
 }
