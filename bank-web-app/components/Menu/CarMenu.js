@@ -23,13 +23,16 @@ function CarMenu() {
 				Add Car
 			</Menu.Item>
 
-
             <Menu.Item key="/car-info" onClick={() => router.push('/common/cars')}>
 				Car Info
 			</Menu.Item>
 
 			<Menu.Item key="/info" onClick={() => router.push('/common/info')}>
 				Info
+			</Menu.Item>
+
+			<Menu.Item key="/audit-record" onClick={() => router.push('/common/deposit-record')}>
+				Audit Record
 			</Menu.Item>
 		</Menu>
 	);
