@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import RentForm from '../../components/carManagement/RentForm';
+import RentCarForm from '../../components/carManagement/RentCarForm';
 
 
 function RentCars() {
@@ -8,7 +8,7 @@ function RentCars() {
 		<>
 			<Row gutter={[16, 16]}>
 				<Col span={24}>
-					<RentForm />
+					<RentCarForm />
 				</Col>
 			</Row>
 		</>

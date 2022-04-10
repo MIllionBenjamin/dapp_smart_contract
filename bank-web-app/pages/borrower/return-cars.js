@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import ReturnForm from '../../components/carManagement/ReturnForm';
+import ReturnCarForm from '../../components/carManagement/ReturnCarForm';
 
 
 function ReturnCars() {
@@ -8,7 +8,7 @@ function ReturnCars() {
 		<>
 			<Row gutter={[16, 16]}>
 				<Col span={24}>
-					<ReturnForm />
+					<ReturnCarForm />
 				</Col>
 			</Row>
 		</>

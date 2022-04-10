@@ -4,24 +4,25 @@ import SmartContractContext from '../../stores/smartContractContext';
 
 
 // React functional component for Get Car form.
-function ReturnForm() {
+function ReturnCarForm() {
 	const [form] = Form.useForm();
 
 	const { CarRentalSmartContractContract } = useContext(SmartContractContext); // Get CarRentalSmartContract contract instance defined in the smartContractContext.
 
 	// Get new borrower entry in to the User Identity smart contract.
 	// values parameter contains the submitted form field values and captured using their names later.
-	const getCar = async (values) => {
+	const returnCar = async (values) => {
 		try {
 			const accounts = await window.ethereum.enable(); // Get the selected account from the metamask plugin.
 			// Call the getBorrower method of the User Identity contract.
 			// SocialSecurityID, wallter getress, user name will pass as parameters to the functions.
 			// Smart contract function will call using selected account from the metamask.
-			await CarRentalSmartContractContract.methods.customerReturnCar(values.rentId).call();
-			
+			console.log(accounts)
+			await CarRentalSmartContractContract.methods.customerReturnCar(values.rentId).send({ from: accounts[0] });
+			console.log(accounts)
 			message.success('Car is returned successfully!');
 		} catch (err) {
-			message.error('Error occured while returninging Car!');
+			message.error('Error occured while returning Car!');
 			console.log(err);
 		}
 	};
@@ -36,11 +37,11 @@ function ReturnForm() {
 				layout="horizontal"
 				size="default"
 				labelAlign="left"
-				onFinish={ReturnForm} // createBorrower function will execute when user submits the form. Form field values will pass as a parameter to the function.
+				onFinish={returnCar} // createBorrower function will execute when user submits the form. Form field values will pass as a parameter to the function.
 			>
 				{/* name property will use to capture the form filed values when user submits the form */}
 				<Form.Item label="rentId" name="rentId" rules={[{ required: true, message: 'Please input rent id!' }]}>
-					<InputNumber
+					<Input
 						style={{ width: '100%' }}
 						placeholder="Enter rent id"
 					/>
@@ -52,7 +53,7 @@ function ReturnForm() {
 					xxl: { span: 14, offset: 2 } }}
 				>
 					{/* Form submit button */}
-					<Button type="primary" htmlType="submit">Get Car</Button>
+					<Button type="primary" htmlType="submit">Return Car</Button>
 				</Form.Item>
 			</Form>
 		</Card>
@@ -61,4 +62,4 @@ function ReturnForm() {
 	);
 }
 
-export default ReturnForm;
+export default ReturnCarForm;
