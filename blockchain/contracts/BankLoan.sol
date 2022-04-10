@@ -3,7 +3,6 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "./UserIdentity.sol";
 import "./MicroToken.sol";
-import "./carRentalSmartContract.sol";
 
 contract BankLoan{
 
@@ -13,8 +12,6 @@ contract BankLoan{
         BORROWER_SIGNED,
         BANK_APPROVED, 
         BANK_REJECTED,
-        
-       
         ONGOING, 
         DEFAULT, 
         CLOSE
@@ -53,7 +50,7 @@ contract BankLoan{
     address public admin;
     UserIdentity public identitySC;
     MicroToken public tokenSC;  
-    CarRental public carRentalSC;
+    
     Loan[] public loans;
     
     // identitySC and tokenSC are default the bank address. 

@@ -246,4 +246,29 @@ contract CarRentalSmartContract {
         return auditDepositRecordHere;
     }
 
+
+    function getCarInfo(string calldata carName) public view returns (Car memory){
+        return carInfo[carName];
+    }
+    
+    function getCarAvailability(string calldata carName) public view returns (uint){
+        return carAvailability[carName];
+    }
+
+    function getCustomerRentCarRecord(uint rentId) public view returns(customerRentCarRecord memory)
+    {
+        return allCustomerRentCarRecord[rentId];
+    }  
+
+
+    function getCustomerReturnCarRecord(uint returnId) public view returns(customerReturnCarRecord memory)
+    {
+        return allCustomerReturnCarRecord[returnId];
+    }  
+
+    function getABCAuditDepositRecord(uint auditId) public view returns(ABCAuditDepositRecord memory)
+    {
+        return allABCAuditDepositRecord[auditId];
+    }
+
 }
