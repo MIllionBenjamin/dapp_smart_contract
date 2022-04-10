@@ -19,6 +19,6 @@ module.exports = async function(deployer, network, accounts) {
 
   await deployer.deploy(BankLoan, microTokenInstance.address, userIdentityInstance.address);
 
-  await deployer.deploy(CarRentalSmartContract, microTokenInstance.address, userIdentityInstance.address);
-
+  await deployer.deploy(CarRentalSmartContract, microTokenInstance.address, userIdentityInstance.address, {from: accounts[1]});
+  console.log(accounts[1]);
 };

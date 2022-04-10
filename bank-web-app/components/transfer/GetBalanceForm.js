@@ -4,36 +4,33 @@ import SmartContractContext from '../../stores/smartContractContext';
 
 
 // React functional component for Get Car form.
-function GetReturnReocrdForm() {
+function GetBalanceForm() {
 	const [form] = Form.useForm();
 
-	const { CarRentalSmartContractContract } = useContext(SmartContractContext); // Get CarRentalSmartContract contract instance defined in the smartContractContext.
+	const { MicroTokenContract } = useContext(SmartContractContext); // Get CarRentalSmartContract contract instance defined in the smartContractContext.
 
 	// Get new borrower entry in to the User Identity smart contract.
 	// values parameter contains the submitted form field values and captured using their names later.
-	const getReturnRecordForm = async (values) => {
+	const getBalance = async (values) => {
 		try {
 			const accounts = await window.ethereum.enable(); // Get the selected account from the metamask plugin.
+            console.log(accounts);
 			// Call the getBorrower method of the User Identity contract.
 			// SocialSecurityID, wallter getress, user name will pass as parameters to the functions.
 			// Smart contract function will call using selected account from the metamask.
-			let getResult = await CarRentalSmartContractContract.methods.getCustomerReturnCarRecord(values.returnId).call();
+			let getResult = await MicroTokenContract.methods.balanceOf(values.addr).call();
 			console.log(getResult);
-			alert(JSON.stringify({"returnRecordId": getResult[0],
-					"rentRecordId": getResult[1],
-				"carName": getResult[3],
-                "returnTimeStamp": getResult[4],
-                "rentFee": getResult[5]}));
-			message.success('successfully!');
+			alert(JSON.stringify({"Balance": getResult[0]}));
+			message.success('Balance is got successfully!');
 		} catch (err) {
-			message.error('Error occured while geting Car!');
+			message.error('Error occured while geting Balance!');
 			console.log(err);
 		}
 	};
 
 	return (
 
-		<Card title="Get Return Record Form">
+		<Card title="Get Balance Form">
 			<Form
 				form={form}
 				labelCol={{ lg: 4, xl: 3, xxl: 2 }}
@@ -41,13 +38,13 @@ function GetReturnReocrdForm() {
 				layout="horizontal"
 				size="default"
 				labelAlign="left"
-				onFinish={getReturnRecordForm} // createBorrower function will execute when user submits the form. Form field values will pass as a parameter to the function.
+				onFinish={getBalance} // createBorrower function will execute when user submits the form. Form field values will pass as a parameter to the function.
 			>
 				{/* name property will use to capture the form filed values when user submits the form */}
-				<Form.Item label="returnId" name="returnId" rules={[{ required: true, message: 'Please input returnId!' }]}>
+				<Form.Item label="Wallet Address" name="addr" rules={[{ required: true, message: 'Please input Account Address!' }]}>
 					<Input
 						style={{ width: '100%' }}
-						placeholder="Enter returnId"
+						placeholder="Enter Account Address"
 					/>
 				</Form.Item>
 				
@@ -57,7 +54,7 @@ function GetReturnReocrdForm() {
 					xxl: { span: 14, offset: 2 } }}
 				>
 					{/* Form submit button */}
-					<Button type="primary" htmlType="submit">Get Return Record</Button>
+					<Button type="primary" htmlType="submit">Get Balance</Button>
 				</Form.Item>
 			</Form>
 		</Card>
@@ -66,4 +63,4 @@ function GetReturnReocrdForm() {
 	);
 }
 
-export default GetReturnReocrdForm;
+export default GetBalanceForm;

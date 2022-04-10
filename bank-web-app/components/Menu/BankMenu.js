@@ -27,6 +27,12 @@ function BankMenu() {
 				<Menu.Item key="/add-borrowers" onClick={() => router.push('/bank/add-borrowers')}>Add Borrower</Menu.Item>
 				<Menu.Item key="/view-borrowers" onClick={() => router.push('/bank/view-borrowers')}>View Borrowers</Menu.Item>
 			</SubMenu>
+
+
+			<Menu.Item key="/balance" onClick={() => router.push('/common/balance')}>
+				Balance
+			</Menu.Item>
+
 			<Menu.Item key="/transfer" onClick={() => router.push('/common/transfer')}>
 				Transfer
 			</Menu.Item>

@@ -59,7 +59,7 @@ function GetRentRecordForm() {
 					xxl: { span: 14, offset: 2 } }}
 				>
 					{/* Form submit button */}
-					<Button type="primary" htmlType="submit">Get Car</Button>
+					<Button type="primary" htmlType="submit">Get Rent Record</Button>
 				</Form.Item>
 			</Form>
 		</Card>

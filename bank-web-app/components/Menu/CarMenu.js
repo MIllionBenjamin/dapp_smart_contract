@@ -23,16 +23,33 @@ function CarMenu() {
 				Add Car
 			</Menu.Item>
 
+            <Menu.Item key="/audit-deposit" onClick={() => router.push('/carCompany/audit-deposit')}>
+				Audit Deposit
+			</Menu.Item>
+
             <Menu.Item key="/car-info" onClick={() => router.push('/common/cars')}>
 				Car Info
 			</Menu.Item>
 
-			<Menu.Item key="/info" onClick={() => router.push('/common/info')}>
-				Info
+            <Menu.Item key="/rent-record" onClick={() => router.push('/common/rentRecords')}>
+				Rent Record
+			</Menu.Item>
+
+			<Menu.Item key="/return-record" onClick={() => router.push('/common/return-record')}>
+				Return Record
 			</Menu.Item>
 
 			<Menu.Item key="/audit-record" onClick={() => router.push('/common/deposit-record')}>
 				Audit Record
+			</Menu.Item>
+
+
+            <Menu.Item key="/balance" onClick={() => router.push('/common/balance')}>
+				Balance
+			</Menu.Item>
+
+            <Menu.Item key="/info" onClick={() => router.push('/common/info')}>
+				Info
 			</Menu.Item>
 		</Menu>
 	);
